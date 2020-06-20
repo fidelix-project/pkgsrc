@@ -41,8 +41,10 @@ REPLACE_FILES.sed+=	font/devps/generate/symbol.sed
 
 .include "options.mk"
 
+.if ${OS_VARIANT}!= "Fidelix"
 PLIST_SRC+=		${WRKDIR}/PLIST-local
 PLIST_SRC+=		PLIST
+.endif
 
 .include "../../mk/bsd.prefs.mk"
 

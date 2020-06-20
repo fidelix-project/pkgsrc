@@ -10,7 +10,9 @@ PKG_SUGGESTED_OPTIONS=	groff-docs x11
 DEPENDS+=		netpbm>=10.0:../../graphics/netpbm
 DEPENDS+=		psutils>=1.17:../../print/psutils
 USE_TOOLS+=		gs:run
+.if ${OS_VARIANT}!= "Fidelix"
 PLIST_SRC+=		PLIST.docs
+.endif
 .else
 CONFIGURE_ENV+=		with_doc=no
 .endif
@@ -18,7 +20,9 @@ CONFIGURE_ENV+=		with_doc=no
 .if !empty(PKG_OPTIONS:Mx11)
 CONFIGURE_ARGS+=	--with-x
 CONFIGURE_ARGS+=	--with-appresdir=${PREFIX}/lib/X11/app-defaults
+.if ${OS_VARIANT} != "Fidelix"
 PLIST_SRC+=		PLIST.x11
+.endif
 .include "../../mk/xaw.buildlink3.mk"
 CONFIGURE_ENV.Interix+=	X_EXTRA_LIBS=-lXext
 .else

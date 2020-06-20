@@ -14,7 +14,9 @@ DEPENDS+=	xfce4-appfinder>=4.14.0:../../sysutils/xfce4-appfinder
 DEPENDS+=	xfce4-desktop>=4.14.1:../../x11/xfce4-desktop
 DEPENDS+=	xfce4-mousepad>=0.4.2:../../editors/xfce4-mousepad
 DEPENDS+=	xfce4-panel>=4.14.0:../../x11/xfce4-panel
+.if ${OS_VARIANT} != "Fidelix"
 DEPENDS+=	xfce4-power-manager>=1.6.5:../../sysutils/xfce4-power-manager
+.endif
 DEPENDS+=	xfce4-orage>=4.12.1:../../time/xfce4-orage
 DEPENDS+=	xfce4-settings>=4.14.0:../../x11/xfce4-settings
 DEPENDS+=	xfce4-session>=4.14.0:../../x11/xfce4-session

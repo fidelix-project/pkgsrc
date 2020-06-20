@@ -1,3 +1,10 @@
+Fidelix pkgsrc branch
+=====================
+
+This branch of pkgsrc is intended for use with [Fidelix](https://fidelix.us/).
+Effort is made to keep it as synced with the upstream pkgsrc as possible. For
+documentation, see the official pkgsrc documentation below.
+
 pkgsrc
 ======
 

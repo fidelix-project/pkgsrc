@@ -110,6 +110,12 @@ post-extract:
 	cp ../../mk/gnu-config/${f} ${WRKSRC}/cmake/${f}
 .endfor
 
+.if ${OS_VARIANT} == "Fidelix"
+BUILD_DEPENDS+=         libexecinfo>=1.1:../../devel/libexecinfo
+DEPENDS+=               libexecinfo>=1.1:../../devel/libexecinfo
+.include "../../devel/libexecinfo/buildlink3.mk"
+.endif
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/tool.mk"

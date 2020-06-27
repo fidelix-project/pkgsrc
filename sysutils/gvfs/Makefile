@@ -32,6 +32,10 @@ PKG_SUGGESTED_OPTIONS+=	fuse
 
 .include "../../mk/bsd.options.mk"
 
+.if ${OS_VARIANT} == "Fidelix"
+PKG_OPTIONS=	none
+.endif
+
 .if !empty(PKG_OPTIONS:Mavahi)
 .include "../../net/avahi/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-avahi

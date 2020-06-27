@@ -133,6 +133,12 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/libLLVM/libLLVM-${PKGVERSION_NOREV}.${SOEXT}
 .endif
 
+.if ${OS_VARIANT} == "Fidelix"
+BUILD_DEPENDS+=         libexecinfo>=1.1:../../devel/libexecinfo
+DEPENDS+=               libexecinfo>=1.1:../../devel/libexecinfo
+.include "../../devel/libexecinfo/buildlink3.mk"
+.endif
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/tool.mk"
 .include "../../mk/bsd.pkg.mk"

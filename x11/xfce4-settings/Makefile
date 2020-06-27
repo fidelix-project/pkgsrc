@@ -37,7 +37,9 @@ MAKE_DIRS+=	${PKG_SYSCONFDIR}/menus \
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
+.if "${OS_VARIANT}" != "Fidelix"
 .include "../../sysutils/upower/buildlink3.mk"
+.endif
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXcursor/buildlink3.mk"
 .include "../../x11/libXi/buildlink3.mk"

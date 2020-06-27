@@ -183,6 +183,12 @@ post-install:
 	    ${DESTDIR}${PREFIX}/lib/dri/swrast_dri.so
 .endif
 
+.if ${OS_VARIANT} == "Fidelix"
+BUILD_DEPENDS+=         libexecinfo>=1.1:../../devel/libexecinfo
+DEPENDS+=               libexecinfo>=1.1:../../devel/libexecinfo
+.include "../../devel/libexecinfo/buildlink3.mk"
+.endif
+
 .include "../../devel/meson/build.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/tool.mk"

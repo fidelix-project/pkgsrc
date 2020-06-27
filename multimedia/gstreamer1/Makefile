@@ -15,7 +15,9 @@ LICENSE=	gnu-lgpl-v2
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		bison flex gmake perl pkg-config
+.if "${OS_VARIANT}" != "Fidelix"
 GNU_CONFIGURE=		yes
+.endif
 TEST_TARGET=		check
 FLEX_REQD=		2.5.31
 
@@ -26,6 +28,16 @@ PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer-check.pc.in
 PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer-net.pc.in
 PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer.pc.in
 PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer-base.pc.in
+
+.if ${OS_VARIANT} == "Fidelix"
+BUILD_DEPENDS+=         libexecinfo>=1.1:../../devel/libexecinfo
+DEPENDS+=               libexecinfo>=1.1:../../devel/libexecinfo
+USE_TOOLS+=		python3
+TOOLS_PLATFORM.python3=	${PYTHONBIN}
+.include "../../devel/libexecinfo/buildlink3.mk"
+.include "../../devel/meson/build.mk"
+.include "../../lang/python/pyversion.mk"
+.endif
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

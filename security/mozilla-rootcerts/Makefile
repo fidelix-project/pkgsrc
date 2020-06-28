@@ -13,6 +13,14 @@ LICENSE=	mpl-2.0
 
 USE_TOOLS=	awk:run echo:run expr:run ln:run ls:run openssl:run rm:run mkdir:run
 
+# Fidelix uses BusyBox awk by default, which is not sufficient to generate the
+# certificates.
+.if "${OS_VARIANT}" == "Fidelix"
+BUILD_DEPENDS+=         gawk>=5.0:../../lang/gawk
+DEPENDS+=               gawk>=5.0:../../lang/gawk
+TOOLS_PLATFORM.awk=	${LOCALBASE}/bin/gawk
+.endif
+
 # This must be kept in sync with security/mozilla-rootcerts-openssl
 CERTDATA_DATE=	20191207
 CERTDATA=	certdata-${CERTDATA_DATE}.txt
@@ -28,7 +36,11 @@ CHECK_BUILTIN.openssl=	yes
 .include "../../security/openssl/builtin.mk"
 CHECK_BUILTIN.openssl=	no
 .if !empty(USE_BUILTIN.openssl:M[yY][eE][sS])
+.  if "${OS_VARIANT}" == "Fidelix"
+SSLDIR=		/etc/ssl
+.  else
 SSLDIR=		/etc/openssl
+.  endif
 .else
 SSLDIR=		${PKG_SYSCONFDIR}/openssl
 .endif
@@ -41,6 +53,9 @@ SUBST_STAGE.paths=	post-configure
 SUBST_FILES.paths=	${CERT_SCRIPT}
 SUBST_VARS.paths=	AWK DATADIR ECHO EXPR LN LS MKDIR PREFIX SSLDIR RM
 SUBST_SED.paths=	-e 's,@OPENSSL@,${TOOLS_PATH.openssl},g'
+.if "${OS_VARIANT}" == "Fidelix"
+SUBST_SED.paths+=	-e 's,@AWK@,${LOCALBASE}/bin/gawk,g'
+.endif
 
 INSTALLATION_DIRS=	sbin ${DATADIR}
 

@@ -86,6 +86,12 @@ SUBST_SED.xopen+=	-e '/_POSIX_SOURCE.*fdopen/s/_POSIX_SOURCE/_XOPEN_SOURCE 600/'
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1 ${PKGMANDIR}/man3 ${PKGMANDIR}/man5 share/netpbm
 
+.if "${OS_VARIANT}" == "Fidelix"
+# Netpbm has a weird usage of pax that does not work on Fidelix. Set it to skip
+# the pax step.
+TOOLS_PLATFORM.pax=     /bin/true
+.endif
+
 .include "options.mk"
 
 post-extract:

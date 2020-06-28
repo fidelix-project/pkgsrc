@@ -211,6 +211,7 @@ LOWER_VENDOR?=		sgi
 
 .elif ${OPSYS} == "Linux"
 OS_VERSION:=		${OS_VERSION:C/-.*$//}
+OS_NAME!=		${UNAME} -o
 LOWER_OPSYS?=		linux
 .  if exists(/etc/lsb-release)
 CHROMEOS_RELEASE_NAME!=	awk -F = '$$1 == "CHROMEOS_RELEASE_NAME" { print $$2 }' /etc/lsb-release
@@ -233,7 +234,10 @@ LOWER_VENDOR?=          pc
 LOWER_VENDOR?=          unknown
 OS_VARIANT!=		${UNAME} -r
 OS_VARIANT:=		${OS_VARIANT:C/^.*-//}
-.  if ${OS_VARIANT} != "Microsoft"
+.  if ${OS_NAME} == "Fidelix"
+LOWER_VENDOR?=		fidelix
+OS_VARIANT=		${OS_NAME}
+.  elif ${OS_VARIANT} != "Microsoft"
 OS_VARIANT=		${LOWER_VENDOR}
 .  endif
 .  if !defined(HOST_MACHINE_ARCH)
